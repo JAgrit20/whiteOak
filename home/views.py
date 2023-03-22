@@ -60,6 +60,18 @@ def author(request):
 
 def Incometax(request):
   return render(request, 'plans/Incometax.html')
+def GST(request):
+  return render(request, 'plans/Incometax.html')
+def accounting(request):
+  return render(request, 'plans/Incometax.html')
+def Business_Incorporation(request):
+  return render(request, 'plans/Incometax.html')
+def PMS(request):
+  return render(request, 'plans/Incometax.html')
+def Compliance(request):
+  return render(request, 'plans/Incometax.html')
+def Trademark(request):
+  return render(request, 'plans/Incometax.html')
 
 
 # Sections

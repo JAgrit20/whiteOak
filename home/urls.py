@@ -1,5 +1,5 @@
 from django.urls import path
-from theme_material_kit import views
+from . import views
 from django.contrib.auth import views as auth_views
 
 
