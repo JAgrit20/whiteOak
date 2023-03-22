@@ -12,13 +12,13 @@ urlpatterns = [
 
     # Plans
 
-    # path('gst', views.GST, name='gst'),
-    # path('accounting', views.accounting, name='accounting'),
-    # path('Business_Incorporation', views.Business_Incorporation, name='Business_Incorporation'),
-    # path('Incometax/', views.Incometax, name='Incometax'),
-    # path('PMS', views.PMS, name='PMS'),
-    # path('Compliance', views.Compliance, name='Compliance'),
-    # path('Trademark', views.Trademark, name='Trademark'),
+    path('gst', views.GST, name='gst'),
+    path('accounting', views.accounting, name='accounting'),
+    path('Business_Incorporation', views.Business_Incorporation, name='Business_Incorporation'),
+    path('Incometax/', views.Incometax, name='Incometax'),
+    path('PMS', views.PMS, name='PMS'),
+    path('Compliance', views.Compliance, name='Compliance'),
+    path('Trademark', views.Trademark, name='Trademark'),
 
     # Authentication
     path('accounts/login/', views.UserLoginView.as_view(), name='login'),
