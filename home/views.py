@@ -3,6 +3,7 @@ from theme_material_kit.forms import LoginForm, RegistrationForm, UserPasswordRe
 from django.contrib.auth import logout
 
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -47,6 +48,7 @@ def user_logout_view(request):
 
 # Pages
 def index(request):
+
   return render(request, 'pages/index.html')
 
 def contact_us(request):
@@ -56,7 +58,14 @@ def about_us(request):
   return render(request, 'pages/about-us.html')
 
 def author(request):
-  return render(request, 'pages/author.html')
+  context = {}
+  if request.user.is_authenticated:
+    username = request.user.username
+    user_name = User.objects.get(username=username)
+    email = User.objects.get(username=username).email
+    print(user_name)
+    context = {"user_name":user_name,"email":email}
+  return render(request, 'pages/author.html',context)
 
 def Incometax(request):
   return render(request, 'plans/Incometax.html')
