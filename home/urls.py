@@ -20,6 +20,8 @@ urlpatterns = [
     path('Compliance', views.Compliance, name='Compliance'),
     path('Trademark', views.Trademark, name='Trademark'),
 
+    path('save_payment_details',views.save_payment_details,name='save_payment_details'),
+
     # Authentication
     path('accounts/login/', views.UserLoginView.as_view(), name='login'),
     path('accounts/logout/', views.user_logout_view, name='logout'),

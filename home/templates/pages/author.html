@@ -44,6 +44,48 @@
                     </button>
                   </div>
                 </div>
+                {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-success text-white font-weight-bold" role="alert" {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+      {{ message }}
+    </div>
+      <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if payments %}
+<div class="container col-10">
+<h3> Recent Transactions</h3>  
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Time</th>
+      <th scope="col">User Name</th>
+      <th scope="col">Transaction ID</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Services Opted</th>
+      <th scope="col">Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for payment in payments %}
+      <tr>
+        <td>{{ payment.time }}</td>
+        <td>{{ payment.user_name }}</td>
+        <td>{{ payment.transaction_id }}</td>
+        <td>{{ payment.amount }}</td>
+        <td>{{ payment.Services_from_user }}</td>
+        <td>{{ payment.comments }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+
                 <!-- <div class="row mb-4">
                   <div class="col-auto">
                     <span class="h6">323</span>
@@ -83,62 +125,20 @@
           </div>
         </div>
         <div class="row">
+          
           <div class="col-lg-3 col-sm-6">
             <div class="card card-plain">
-              <div class="card-header p-0 position-relative">
-                <a class="d-block blur-shadow-image">
-                  <img src="{% static 'img/examples/testimonial-6-2.jpg' %}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
-                </a>
-              </div>
-              <div class="card-body px-0">
-                <h5>
-                  <a href="javascript:;" class="text-dark font-weight-bold">Accounting Service Standard</a>
-                </h5>
-                <p>
-                  Finding temporary housing for your dog should be as easy as
-                  renting an Airbnb. That’s the idea behind Rover ...
-                </p>
-                <!-- <a href="javascript:;" class="text-info text-sm icon-move-right">Read More
-                  <i class="fas fa-arrow-right text-xs ms-1"></i>
-                </a> -->
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="card card-plain">
-              <div class="card-header p-0 position-relative">
-                <a class="d-block blur-shadow-image">
-                  <img src="{% static 'img/examples/testimonial-6-3.jpg' %}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
-                </a>
-              </div>
-              <div class="card-body px-0">
-                <h5>
-                  <a href="javascript:;" class="text-dark font-weight-bold">GST</a>
-                </h5>
-                <p>
-                  If you’ve ever wanted to train a machine learning model
-                  and integrate it with IFTTT, you now can with ...
-                </p>
-                <!-- <a href="javascript:;" class="text-info text-sm icon-move-right">Read More
-                  <i class="fas fa-arrow-right text-xs ms-1"></i>
-                </a> -->
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="card card-plain">
-              <div class="card-header p-0 position-relative">
+              <!-- <div class="card-header p-0 position-relative">
                 <a class="d-block blur-shadow-image">
                   <img src="{% static 'img/examples/blog-9-4.jpg' %}" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
                 </a>
-              </div>
+              </div> -->
               <div class="card-body px-0">
                 <h5>
-                  <a href="javascript:;" class="text-dark font-weight-bold">Trademark & Intellectual property</a>
+                  <a href="javascript:;" class="text-dark font-weight-bold">Looks like you haven't Opted for any service yet please explore our Plans !!</a>
                 </h5>
                 <p>
-                  If you’ve ever wanted to train a machine learning model
-                  and integrate it with IFTTT, you now can with ...
+                  ...
                 </p>
               
               </div>
@@ -163,6 +163,71 @@
     </section>
     <!-- END Blogs w/ 4 cards w/ image & text & link -->
   </div>
+  <div class="container">
+    <h1 class="text-black">Payment QR</h1>
+  </div>
+  <section class="py-lg-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card box-shadow-xl overflow-hidden mb-5">
+            <div class="row">
+              <div class="col-lg-5 position-relative bg-cover px-0" style="background-image: url('{% static 'img/QR.jpg' %}')" loading="lazy">
+              </div>
+              <div class="col-lg-7">
+                <form class="p-3" id="contact-form" method="post" action="/save_payment_details">
+                  {% csrf_token %}
+                  <div class="card-header px-4 py-sm-5 py-3">
+                    <h2>Notify Us</h2>
+                    <p class="lead"> Once you have done the payment please send us the required details</p>
+                  </div>
+                  <div class="card-body pt-1">
+                    <div class="row">
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                          <label>Your name </label>
+                          <input type="text" name="name" class="form-control" placeholder="Full Name">
+                        </div>
+                      </div>
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                          <label>Amount Paid</label>
+                          <input type="text" name="amount" class="form-control" placeholder="Amount you paid">
+                        </div>
+                      </div>
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                          <label>Services I am looking for</label>
+                          <input type="text" name="service" class="form-control" placeholder="name your service">
+                        </div>
+                      </div>
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                          <label>Transaction ID</label>
+                          <input type="text" name="transaction_id" class="form-control" placeholder="My transaction Id is">
+                        </div>
+                      </div>
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="input-group input-group-static mb-4">
+                          <label>Comments</label>
+                          <textarea name="comments" class="form-control" id="message" rows="6" placeholder="I want to say that..."></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 text-end ms-auto">
+                        <button type="submit" class="btn bg-gradient-success mb-0">Send Message</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="py-lg-5">
     <div class="container">
       <div class="row">
@@ -260,8 +325,3 @@
   
 {% endblock content %}
 
-{% block footer %}
-
-{% include 'includes/footer.html' %}
-
-{% endblock footer %}

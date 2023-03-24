@@ -4,7 +4,13 @@ from django.contrib.auth import logout
 
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.models import User
-
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Payment_details
+import datetime
+import pytz
+from django.shortcuts import  redirect
+from django.contrib import messages
 # Create your views here.
 
 
@@ -57,14 +63,55 @@ def contact_us(request):
 def about_us(request):
   return render(request, 'pages/about-us.html')
 
+def get_time():
+    dtobj1 = datetime.datetime.utcnow()  # utcnow class method
+    dtobj3 = dtobj1.replace(tzinfo=pytz.UTC)  # replace method
+    dtobj_india = dtobj3.astimezone(pytz.timezone("Asia/Calcutta"))  # astimezone method 
+    dtobj_india = dtobj_india.strftime("%Y-%m-%d %H:%M:%S")
+    dtobj_indiaa = str(dtobj_india)
+    return dtobj_indiaa
+
+def save_payment_details(request):
+    user_id = ""
+    if request.method == 'POST':
+        name = request.POST['name']
+        amount = request.POST['amount']
+        service = request.POST['service']
+        transaction_id = request.POST['transaction_id']
+        comments = request.POST['comments']
+        if request.user.is_authenticated:
+          user_id = request.user.id
+
+        rec = Payment_details.objects.create(time=get_time(), transaction_id=transaction_id, user_name=name, user_id=user_id, amount=amount, Services_from_user=service, comments=comments)
+        rec.save()
+
+        # Show success message using Django messages framework
+        messages.success(request, 'Your form has been submitted successfully!')
+
+        payments = Payment_details.objects.filter(user_id=user_id).values()
+        print(payments)
+
+        context ={'payments':payments}
+
+        # Redirect to a thank you page
+        return render(request, 'pages/author.html',context)
+    else:
+        return render(request, 'pages/author.html')
+
+
 def author(request):
   context = {}
+  user_id=""
   if request.user.is_authenticated:
     username = request.user.username
+    user_id = request.user.id
     user_name = User.objects.get(username=username)
     email = User.objects.get(username=username).email
+    payments = Payment_details.objects.filter(user_id=user_id).values()
+    print(payments)
+
     print(user_name)
-    context = {"user_name":user_name,"email":email}
+    context = {"user_name":user_name,"email":email,'payments':payments}
   return render(request, 'pages/author.html',context)
 
 def Incometax(request):
