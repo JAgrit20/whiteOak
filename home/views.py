@@ -187,3 +187,159 @@ def modals(request):
 
 def tooltips(request):
   return render(request, 'sections/attention-catchers/tooltips-popovers.html')
+
+
+# ///////////////// CC Avenue///////////////////////////
+
+
+#!/usr/bin/env python
+
+#!/usr/bin/env python
+
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives import padding
+from cryptography.hazmat.primitives import hashes, hmac
+from cryptography.hazmat.backends import default_backend
+import binascii
+
+def pad(data):
+    padder = padding.PKCS7(128).padder()
+    padded_data = padder.update(data.encode())
+    padded_data += padder.finalize()
+    return padded_data
+
+def unpad(padded_data):
+    unpadder = padding.PKCS7(128).unpadder()
+    data = unpadder.update(padded_data)
+    data += unpadder.finalize()
+    return data.decode()
+
+def encrypt(plainText, workingKey):
+    iv = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+    plainText = pad(plainText)
+    key = hashes.Hash(hashes.MD5(), backend=default_backend())
+    key.update(workingKey.encode())
+    cipher = Cipher(algorithms.AES(key.finalize()), modes.CBC(iv), backend=default_backend())
+    encryptor = cipher.encryptor()
+    ct = encryptor.update(plainText) + encryptor.finalize()
+    return binascii.hexlify(ct).decode()
+
+def decrypt(cipherText, workingKey):
+    iv = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+    key = hashes.Hash(hashes.MD5(), backend=default_backend())
+    key.update(workingKey.encode())
+    cipher = Cipher(algorithms.AES(key.finalize()), modes.CBC(iv), backend=default_backend())
+    decryptor = cipher.decryptor()
+    ct = binascii.unhexlify(cipherText)
+    pt = decryptor.update(ct) + decryptor.finalize()
+    return unpad(pt)
+
+# from ccavutil import encrypt,decrypt
+from string import Template
+
+def res(encResp):
+
+	workingKey = '588E07A459E6C1C7B2ABA1AA639B1EE8'
+	decResp = decrypt(encResp,workingKey)
+	data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
+	data = data + decResp.replace('=','</td><td>')
+	data = data.replace('&','</td></tr><tr><td>')
+	data = data + '</td></tr></table>'
+	
+	html = '''\
+	<html>
+		<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<title>Response Handler</title>
+		</head>
+		<body>
+			<center>
+				<font size="4" color="blue"><b>Response Page</b></font>
+				<br>
+				$response
+			</center>
+			<br>
+		</body>
+	</html>
+	'''
+	fin = Template(html).safe_substitute(response=data)
+	return fin
+
+
+
+from django.shortcuts import render
+from django.http import HttpResponse
+# from ccavutil import encrypt, decrypt
+# from ccavResponseHandler import res
+from django.template import Template, Context
+from django.views.decorators.csrf import csrf_exempt
+
+accessCode = 'AVTV50KD64BC69VTCB' 	
+workingKey = '588E07A459E6C1C7B2ABA1AA639B1EE8'
+
+def webprint(request):
+    return render(request, 'dataFrom.htm')
+
+def checkout(request):
+    return render(request, 'about-us.html')
+
+@csrf_exempt
+def ccavResponseHandler(request):
+    plainText = res(request.POST['encResp'])
+    return HttpResponse(plainText)
+
+@csrf_exempt
+def login(request):
+    p_merchant_id = request.POST['merchant_id']
+    p_order_id = request.POST['order_id']
+    p_currency = request.POST['currency']
+    p_amount = request.POST['amount']
+    p_redirect_url = request.POST['redirect_url']
+    p_cancel_url = request.POST['cancel_url']
+    p_language = request.POST['language']
+    p_billing_name = request.POST['billing_name']
+    p_billing_address = request.POST['billing_address']
+    p_billing_city = request.POST['billing_city']
+    p_billing_state = request.POST['billing_state']
+    p_billing_zip = request.POST['billing_zip']
+    p_billing_country = request.POST['billing_country']
+    p_billing_tel = request.POST['billing_tel']
+    p_billing_email = request.POST['billing_email']
+    p_delivery_name = request.POST['delivery_name']
+    p_delivery_address = request.POST['delivery_address']
+    p_delivery_city = request.POST['delivery_city']
+    p_delivery_state = request.POST['delivery_state']
+    p_delivery_zip = request.POST['delivery_zip']
+    p_delivery_country = request.POST['delivery_country']
+    p_delivery_tel = request.POST['delivery_tel']
+    p_merchant_param1 = request.POST['merchant_param1']
+    p_merchant_param2 = request.POST['merchant_param2']
+    p_merchant_param3 = request.POST['merchant_param3']
+    p_merchant_param4 = request.POST['merchant_param4']
+    p_merchant_param5 = request.POST['merchant_param5']
+    p_promo_code = request.POST['promo_code']
+    p_customer_identifier = request.POST['customer_identifier']
+
+    merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language+'&'+'billing_name='+p_billing_name+'&'+'billing_address='+p_billing_address+'&'+'billing_city='+p_billing_city+'&'+'billing_state='+p_billing_state+'&'+'billing_zip='+p_billing_zip+'&'+'billing_country='+p_billing_country+'&'+'billing_tel='+p_billing_tel+'&'+'billing_email='+p_billing_email+'&'+'delivery_name='+p_delivery_name+'&'+'delivery_address='+p_delivery_address+'&'+'delivery_city='+p_delivery_city+'&'+'delivery_state='+p_delivery_state+'&'+'delivery_zip='+p_delivery_zip+'&'+'delivery_country='+p_delivery_country+'&'+'delivery_tel='+p_delivery_tel+'&'+'merchant_param1='+p_merchant_param1+'&'+'merchant_param2='+p_merchant_param2+'&'+'merchant_param3='+p_merchant_param3+'&'+'merchant_param4='+p_merchant_param4+'&'+'merchant_param5='+p_merchant_param5+'&'+'promo_code='+p_promo_code+'&'+'customer_identifier='+p_customer_identifier+'&'
+
+    encryption = encrypt(merchant_data, workingKey)
+
+    html = '''\
+    <html>
+    <head>
+        <title>Sub-merchant checkout page</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    </head>
+    <body>
+    <form id="nonseamless" method="post" name="redirect" action="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction" > 
+            <input type="hidden" id="encRequest" name="encRequest" value=$encReq>
+            <input type="hidden" name="access_code" id="access_code" value=$xscode>
+            <script language='javascript'>document.redirect.submit();</script>
+    </form>    
+    </body>
+    </html>
+    '''
+
+    context = Context({"encReq": encryption, "xscode": accessCode})
+    template = Template(html)
+    return HttpResponse(template.render(context))

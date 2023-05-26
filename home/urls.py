@@ -22,6 +22,15 @@ urlpatterns = [
 
     path('save_payment_details',views.save_payment_details,name='save_payment_details'),
 
+
+    # path('', webprint, name='webprint'),
+    path('ccavResponseHandler', views.ccavResponseHandler, name='ccavResponseHandler'),
+    path('ccavRequestHandler', views.login, name='login'),
+
+    path('checkout', views.checkout, name='checkout'),
+
+
+
     # Authentication
     path('accounts/login/', views.UserLoginView.as_view(), name='login'),
     path('accounts/logout/', views.user_logout_view, name='logout'),
