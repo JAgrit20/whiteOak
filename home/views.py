@@ -290,6 +290,9 @@ def ccavResponseHandler(request):
 
 @csrf_exempt
 def login(request):
+    
+    ccavenue = CCAvenue("588E07A459E6C1C7B2ABA1AA639B1EE8", "AVTV50KD64BC69VTCB", "2308221", "http://www.whiteoakconsultant.com/", "http://www.whiteoakconsultant.com/")
+
     p_merchant_id = request.POST['merchant_id']
     p_order_id = request.POST['order_id']
     p_currency = request.POST['currency']
@@ -322,7 +325,41 @@ def login(request):
 
     merchant_data='merchant_id='+p_merchant_id+'&'+'order_id='+p_order_id + '&' + "currency=" + p_currency + '&' + 'amount=' + p_amount+'&'+'redirect_url='+p_redirect_url+'&'+'cancel_url='+p_cancel_url+'&'+'language='+p_language+'&'+'billing_name='+p_billing_name+'&'+'billing_address='+p_billing_address+'&'+'billing_city='+p_billing_city+'&'+'billing_state='+p_billing_state+'&'+'billing_zip='+p_billing_zip+'&'+'billing_country='+p_billing_country+'&'+'billing_tel='+p_billing_tel+'&'+'billing_email='+p_billing_email+'&'+'delivery_name='+p_delivery_name+'&'+'delivery_address='+p_delivery_address+'&'+'delivery_city='+p_delivery_city+'&'+'delivery_state='+p_delivery_state+'&'+'delivery_zip='+p_delivery_zip+'&'+'delivery_country='+p_delivery_country+'&'+'delivery_tel='+p_delivery_tel+'&'+'merchant_param1='+p_merchant_param1+'&'+'merchant_param2='+p_merchant_param2+'&'+'merchant_param3='+p_merchant_param3+'&'+'merchant_param4='+p_merchant_param4+'&'+'merchant_param5='+p_merchant_param5+'&'+'promo_code='+p_promo_code+'&'+'customer_identifier='+p_customer_identifier+'&'
 
-    encryption = encrypt(merchant_data, workingKey)
+    merchant_data = {
+    'merchant_id': p_merchant_id,
+    'order_id': p_order_id,
+    'currency': p_currency,
+    'amount': p_amount,
+    'redirect_url': p_redirect_url,
+    'cancel_url': p_cancel_url,
+    'language': p_language,
+    'billing_name': p_billing_name,
+    'billing_address': p_billing_address,
+    'billing_city': p_billing_city,
+    'billing_state': p_billing_state,
+    'billing_zip': p_billing_zip,
+    'billing_country': p_billing_country,
+    'billing_tel': p_billing_tel,
+    'billing_email': p_billing_email,
+    'delivery_name': p_delivery_name,
+    'delivery_address': p_delivery_address,
+    'delivery_city': p_delivery_city,
+    'delivery_state': p_delivery_state,
+    'delivery_zip': p_delivery_zip,
+    'delivery_country': p_delivery_country,
+    'delivery_tel': p_delivery_tel,
+    'merchant_param1': p_merchant_param1,
+    'merchant_param2': p_merchant_param2,
+    'merchant_param3': p_merchant_param3,
+    'merchant_param4': p_merchant_param4,
+    'merchant_param5': p_merchant_param5,
+    'promo_code': p_promo_code,
+    'customer_identifier': p_customer_identifier
+    }
+
+    # encryption = encrypt(merchant_data, workingKey)
+    encrypted_data = ccavenue.encrypt(merchant_data)
+
 
     html = '''\
     <html>
@@ -331,7 +368,7 @@ def login(request):
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     </head>
     <body>
-    <form id="nonseamless" method="post" name="redirect" action="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction" > 
+    <form id="nonseamless" method="post" name="redirect" action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction" > 
             <input type="hidden" id="encRequest" name="encRequest" value=$encReq>
             <input type="hidden" name="access_code" id="access_code" value=$xscode>
             <script language='javascript'>document.redirect.submit();</script>
@@ -340,6 +377,34 @@ def login(request):
     </html>
     '''
 
-    context = Context({"encReq": encryption, "xscode": accessCode})
+    context = Context({"encReq": encrypted_data, "xscode": accessCode})
     template = Template(html)
     return HttpResponse(template.render(context))
+
+
+
+from django.shortcuts import render
+from pay_ccavenue import CCAvenue
+
+def payment(request):
+    ccavenue = CCAvenue("588E07A459E6C1C7B2ABA1AA639B1EE8", "AVTV50KD64BC69VTCB", "2308221", "http://www.whiteoakconsultant.com/", "http://www.whiteoakconsultant.com/")
+
+
+    
+    # ccavenue = CCAvenue(settings.CCAVENUE_WORKING_KEY, settings.CCAVENUE_ACCESS_CODE, settings.CCAVENUE_MERCHANT_CODE, settings.CCAVENUE_REDIRECT_URL, settings.CCAVENUE_CANCEL_URL)
+    form_data = {
+        "amount": "100",
+        "currency": "INR",
+        "order_id": "123456",
+        # add other required fields as per CCAvenue documentation
+    }
+    encrypted_data = ccavenue.encrypt(form_data)
+    return render(request, 'payment.html', {"encrypted_data": encrypted_data})
+
+def payment_response(request):
+    ccavenue = CCAvenue("588E07A459E6C1C7B2ABA1AA639B1EE8", "AVTV50KD64BC69VTCB", "2308221", "http://www.whiteoakconsultant.com/", "http://www.whiteoakconsultant.com/")
+    # ccavenue = CCAvenue(settings.CCAVENUE_WORKING_KEY, settings.CCAVENUE_ACCESS_CODE, settings.CCAVENUE_MERCHANT_CODE, settings.CCAVENUE_REDIRECT_URL, settings.CCAVENUE_CANCEL_URL)
+    response_data = request.POST
+    decrypted_data = ccavenue.decrypt(response_data)
+    # Handle the decrypted_data as required
+    return render(request, 'payment_response.html', {"response": decrypted_data})

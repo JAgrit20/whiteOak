@@ -69,4 +69,7 @@ urlpatterns = [
     path('alerts/', views.alerts, name='alerts'),
     path('modals/', views.modals, name='modals'),
     path('tooltips/', views.tooltips, name='tooltips'),
+    path('payment/', views.payment, name='payment'),
+    path('payment_response/', views.payment_response, name='payment_response'),
+
 ]
