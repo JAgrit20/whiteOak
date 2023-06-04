@@ -473,7 +473,7 @@ def checkout(request):
     params = {
         'p_redirect_url': p_redirect_url,
         'encryption': encryption, 'access_code': settings.CC_ACCESS_CODE,
-        'cc_url': settings.CC_URL, 'p_amount': 10
+        'cc_url': settings.CC_URL, 'p_amount': 10,'current_site':current_site
     }
 
     return render(request, 'pages/payment.html', params)
