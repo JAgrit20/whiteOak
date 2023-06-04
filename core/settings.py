@@ -175,7 +175,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 if DEBUG:
-    CC_URL = 'https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction'
+    CC_URL = 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction'
 else:
     CC_URL = 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction'
 CC_MERCHANT_ID = "2308221"
