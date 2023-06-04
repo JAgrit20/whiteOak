@@ -25,9 +25,9 @@ urlpatterns = [
 
     # path('', webprint, name='webprint'),
     path('ccavResponseHandler', views.ccavResponseHandler, name='ccavResponseHandler'),
-    path('ccavRequestHandler', views.login, name='login'),
+    path('ccavRequestHandler', views.checkout, name='login'),
 
-    path('checkout', views.checkout, name='checkout'),
+    # path('checkout', views.checkout, name='checkout'),
 
 
 
@@ -71,5 +71,8 @@ urlpatterns = [
     path('tooltips/', views.tooltips, name='tooltips'),
     path('payment/', views.payment, name='payment'),
     path('payment_response/', views.payment_response, name='payment_response'),
+
+    path('payment_success/', views.payment_success, name='payment_success'),
+    path('payment_cancel/', views.payment_cancel, name='payment_cancel'),
 
 ]
