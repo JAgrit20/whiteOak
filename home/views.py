@@ -498,34 +498,51 @@ def payment_success(request):
     print(type(response_data))
     # print(payment_list)
 
-    fail_message = f"""
-    Dear {response_data['billing_name'][0]},
+# import urllib.parse
 
-    We regret to inform you that your recent transaction with Order ID: {response_data['order_id'][0]} on date {response_data['trans_date'][0]} was unsuccessful. 
+# # Your response string
+# response_string = 'order_id=0001&tracking_id=112903827686&bank_ref_no=663698&order_status=Success&failure_message=&payment_mode=Credit Card&card_name=Visa&status_code=null&status_message=SUCCESS¤cy=INR&amount=1.00&billing_name=Foo Bar&billing_address=12/Foo Bar&billing_city=Tinsukia&billing_state=Assam&billing_zip=786125&billing_country=India&billing_tel=9957767675&billing_email=vishal.pandey@chat360.io&delivery_name=Foo Bar&delivery_address=12/Foo Bar&delivery_city=Tinsukia&delivery_state=Assam&delivery_zip=786125&delivery_country=India&delivery_tel=9957767675&merchant_param1=&merchant_param2=&merchant_param3=&merchant_param4=&merchant_param5=&vault=N&offer_type=null&offer_code=null&discount_value=0.0&mer_amount=1.00&eci_value=null&retry=N&response_code=0&billing_notes=&trans_date=07/06/2023 22:28:01&bin_country=INDIA'
 
-    Order Status: {response_data['order_status'][0]}
-    Payment Mode: {response_data['payment_mode'][0]}
-    Card Name: {response_data['card_name'][0]}
-    Status Message: {response_data['status_message'][0]}
-    Transaction Amount: {response_data['amount'][0]} {response_data['currency'][0]}
-    Merchant Amount: {response_data['mer_amount'][0]}
+# # Parse the response string
+# response_data = urllib.parse.parse_qs(response_string)
 
-    Billing Details:
-    Name: {response_data['billing_name'][0]}
-    Email: {response_data['billing_email'][0]}
-    Contact Number: {response_data['billing_tel'][0]}
-    Address: {response_data['billing_address'][0]}, {response_data['billing_city'][0]}, {response_data['billing_state'][0]}, {response_data['billing_zip'][0]}, {response_data['billing_country'][0]}
+# Check the order_status
+    if response_data['order_status'][0] == "Success":
+        beautiful_message = f"""
+        Dear {response_data['billing_name'][0]},
 
-    Delivery Details:
-    Name: {response_data['delivery_name'][0]}
-    Contact Number: {response_data['delivery_tel'][0]}
-    Address: {response_data['delivery_address'][0]}, {response_data['delivery_city'][0]}, {response_data['delivery_state'][0]}, {response_data['delivery_zip'][0]}, {response_data['delivery_country'][0]}
+        We are pleased to confirm that your recent transaction with Order ID: {response_data['order_id'][0]} on date {response_data['trans_date'][0]} was successful. 
 
-    Please contact our support team if you need any further assistance.
+        Order Status: {response_data['order_status'][0]}
+        Payment Mode: {response_data['payment_mode'][0]}
+        Card Name: {response_data['card_name'][0]}
+        Status Message: {response_data['status_message'][0]}
+        Transaction Amount: {response_data['amount'][0]} {response_data['currency'][0]}
+        Merchant Amount: {response_data['mer_amount'][0]}
 
-    Thank you,
-    Support Team
-    """
+        Thank you for your trust,
+        Support Team
+        """
+    elif response_data['order_status'][0] == "Failure":
+        beautiful_message = f"""
+        Dear {response_data['billing_name'][0]},
+
+        We regret to inform you that your recent transaction with Order ID: {response_data['order_id'][0]} on date {response_data['trans_date'][0]} was unsuccessful. 
+
+        Order Status: {response_data['order_status'][0]}
+        Payment Mode: {response_data['payment_mode'][0]}
+        Card Name: {response_data['card_name'][0]}
+        Status Message: {response_data['status_message'][0]}
+        Transaction Amount: {response_data['amount'][0]} {response_data['currency'][0]}
+        Merchant Amount: {response_data['mer_amount'][0]}
+
+        Please contact our support team if you need any further assistance.
+
+        Thank you,
+        Support Team
+        """
+
+    print(beautiful_message)
 
 
 
@@ -534,7 +551,7 @@ def payment_success(request):
 
 
 
-    return HttpResponse((response_string))
+    return HttpResponse((beautiful_message))
 
 @csrf_exempt
 def payment_cancel(request):
