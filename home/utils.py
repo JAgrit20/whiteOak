@@ -29,34 +29,31 @@ def unpad(data):
     
     return data[0:-data[-1]]
 
-def encrypt(raw, key):
-    raw = pad(raw)
-    iv = Random.new().read(AES.block_size)
-    cipher = AES.new(bytes(key.encode()), AES.MODE_CBC, iv)
-    return base64.b64encode(iv + cipher.encrypt(raw.encode()))
+from Crypto.Cipher import AES
+import hashlib
+from binascii import hexlify, unhexlify
 
-def decrypt(cipher_text, working_key):
+def pad(data):
+    length = 16 - (len(data) % 16)
+    data += bytes([length]) * length
+    return data
 
-    """
-    Method decrypt cc-avenue response.
-    :param cipher_text: encrypted data
-    :param working_key: working data
-    :return: list
-    """
-    cipher_text = base64.b64decode(cipher_text)
-    iv = cipher_text[:AES.block_size]
-    cipher = AES.new(bytes(working_key.encode()), AES.MODE_CBC, iv)
+def encrypt(plainText,workingKey):
+    iv = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+    plainText = pad(plainText.encode())
+    encDigest = hashlib.md5()
+    encDigest.update(workingKey.encode())
+    enc_cipher = AES.new(encDigest.digest(), AES.MODE_CBC, iv)
+    encryptedText = hexlify(enc_cipher.encrypt(plainText))
+    return encryptedText.decode()
 
-    plain_data = unpad(cipher.decrypt(cipher_text[AES.block_size:])).decode('utf-8')
-    print(plain_data)
-    plain_data_list = plain_data.split('&')
+def decrypt(cipherText, workingKey):
+    iv = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+    decDigest = hashlib.md5()
+    decDigest.update(workingKey.encode())
+    cipherText = binascii.unhexlify(cipherText.encode())
+    dec_cipher = AES.new(decDigest.digest(), AES.MODE_CBC, iv)
+    decryptedText = dec_cipher.decrypt(cipherText)
+    return decryptedText.rstrip(bytes([decryptedText[-1]])).decode('latin-1')
 
-    final_pay_list = []
-    for data in plain_data_list:
 
-        final_pay_dict = {}
-        final_pay_dict[data.split('=')[0]] = data.split('=')[1]
-
-        final_pay_list.append(final_pay_dict)
-
-    return final_pay_list

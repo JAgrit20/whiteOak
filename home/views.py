@@ -196,74 +196,74 @@ def tooltips(request):
 
 #!/usr/bin/env python
 
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives import padding
-from cryptography.hazmat.primitives import hashes, hmac
-from cryptography.hazmat.backends import default_backend
-import binascii
+# from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+# from cryptography.hazmat.primitives import padding
+# from cryptography.hazmat.primitives import hashes, hmac
+# from cryptography.hazmat.backends import default_backend
+# import binascii
 
-def pad(data):
-    padder = padding.PKCS7(128).padder()
-    padded_data = padder.update(data.encode())
-    padded_data += padder.finalize()
-    return padded_data
+# def pad(data):
+#     padder = padding.PKCS7(128).padder()
+#     padded_data = padder.update(data.encode())
+#     padded_data += padder.finalize()
+#     return padded_data
 
-def unpad(padded_data):
-    unpadder = padding.PKCS7(128).unpadder()
-    data = unpadder.update(padded_data)
-    data += unpadder.finalize()
-    return data.decode()
+# def unpad(padded_data):
+#     unpadder = padding.PKCS7(128).unpadder()
+#     data = unpadder.update(padded_data)
+#     data += unpadder.finalize()
+#     return data.decode()
 
-def encrypt(plainText, workingKey):
-    iv = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
-    plainText = pad(plainText)
-    key = hashes.Hash(hashes.MD5(), backend=default_backend())
-    key.update(workingKey.encode())
-    cipher = Cipher(algorithms.AES(key.finalize()), modes.CBC(iv), backend=default_backend())
-    encryptor = cipher.encryptor()
-    ct = encryptor.update(plainText) + encryptor.finalize()
-    return binascii.hexlify(ct).decode()
+# def encrypt(plainText, workingKey):
+#     iv = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+#     plainText = pad(plainText)
+#     key = hashes.Hash(hashes.MD5(), backend=default_backend())
+#     key.update(workingKey.encode())
+#     cipher = Cipher(algorithms.AES(key.finalize()), modes.CBC(iv), backend=default_backend())
+#     encryptor = cipher.encryptor()
+#     ct = encryptor.update(plainText) + encryptor.finalize()
+#     return binascii.hexlify(ct).decode()
 
-def decrypt(cipherText, workingKey):
-    iv = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
-    key = hashes.Hash(hashes.MD5(), backend=default_backend())
-    key.update(workingKey.encode())
-    cipher = Cipher(algorithms.AES(key.finalize()), modes.CBC(iv), backend=default_backend())
-    decryptor = cipher.decryptor()
-    ct = binascii.unhexlify(cipherText)
-    pt = decryptor.update(ct) + decryptor.finalize()
-    return unpad(pt)
+# def decrypt(cipherText, workingKey):
+#     iv = b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
+#     key = hashes.Hash(hashes.MD5(), backend=default_backend())
+#     key.update(workingKey.encode())
+#     cipher = Cipher(algorithms.AES(key.finalize()), modes.CBC(iv), backend=default_backend())
+#     decryptor = cipher.decryptor()
+#     ct = binascii.unhexlify(cipherText)
+#     pt = decryptor.update(ct) + decryptor.finalize()
+#     return unpad(pt)
 
 # from ccavutil import encrypt,decrypt
-from string import Template
+# from string import Template
 
-def res(encResp):
+# def res(encResp):
 
-	workingKey = '588E07A459E6C1C7B2ABA1AA639B1EE8'
-	decResp = decrypt(encResp,workingKey)
-	data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
-	data = data + decResp.replace('=','</td><td>')
-	data = data.replace('&','</td></tr><tr><td>')
-	data = data + '</td></tr></table>'
+# 	workingKey = '588E07A459E6C1C7B2ABA1AA639B1EE8'
+# 	decResp = decrypt(encResp,workingKey)
+# 	data = '<table border=1 cellspacing=2 cellpadding=2><tr><td>'	
+# 	data = data + decResp.replace('=','</td><td>')
+# 	data = data.replace('&','</td></tr><tr><td>')
+# 	data = data + '</td></tr></table>'
 	
-	html = '''\
-	<html>
-		<head>
-			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-			<title>Response Handler</title>
-		</head>
-		<body>
-			<center>
-				<font size="4" color="blue"><b>Response Page</b></font>
-				<br>
-				$response
-			</center>
-			<br>
-		</body>
-	</html>
-	'''
-	fin = Template(html).safe_substitute(response=data)
-	return fin
+# 	html = '''\
+# 	<html>
+# 		<head>
+# 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+# 			<title>Response Handler</title>
+# 		</head>
+# 		<body>
+# 			<center>
+# 				<font size="4" color="blue"><b>Response Page</b></font>
+# 				<br>
+# 				$response
+# 			</center>
+# 			<br>
+# 		</body>
+# 	</html>
+# 	'''
+# 	fin = Template(html).safe_substitute(response=data)
+# 	return fin
 
 
 
@@ -285,8 +285,7 @@ def webprint(request):
 
 @csrf_exempt
 def ccavResponseHandler(request):
-    plainText = res(request.POST['encResp'])
-    return HttpResponse(plainText)
+    return render(request, 'dataFrom.htm')
 
 @csrf_exempt
 def login(request):
@@ -425,7 +424,7 @@ def checkout(request):
 
     p_order_id = '0001'
     p_currency = settings.CC_CURRENCY
-    p_amount = '100'
+    p_amount = '1'
 
     p_redirect_url = str(current_site) + '/payment_success/'
     p_cancel_url = str(current_site) + '/payment_cancel/'
@@ -473,42 +472,38 @@ def checkout(request):
     params = {
         'p_redirect_url': p_redirect_url,
         'encryption': encryption, 'access_code': settings.CC_ACCESS_CODE,
-        'cc_url': settings.CC_URL, 'p_amount': 10,'current_site':current_site
+        'cc_url': settings.CC_URL, 'p_amount': 1,'current_site':current_site
     }
 
     return render(request, 'pages/payment.html', params)
 
 
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from django.conf import settings
+
 @csrf_exempt
 def payment_success(request):
-
     """
-    Method to handel cc-ave payment success.
+    Method to handle cc-ave payment success.
     :param request:
     :return:
     """
-
     response_data = request.POST
-
     response_chiper = response_data.get('encResp')
     payment_list = decrypt(response_chiper, settings.CC_WORKING_KEY)
-
     # payment success code
 
     return HttpResponse('DONE')
 
-
 @csrf_exempt
 def payment_cancel(request):
-
     """
-    Method to handel cc-ave.
+    Method to handle cc-ave.
     :param request: data
     :return: status
     """
-
     response_data = request.POST
-
     response_chiper = response_data.get('encResp')
     payment_list = decrypt(response_chiper, settings.CC_WORKING_KEY)
     print(payment_list)
