@@ -31,6 +31,8 @@ def unpad(data):
 
 from Crypto.Cipher import AES
 import hashlib
+import binascii
+
 from binascii import hexlify, unhexlify
 
 def pad(data):
