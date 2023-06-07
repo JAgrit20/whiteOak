@@ -497,7 +497,8 @@ def payment_success(request):
     print(response_data)
     print(type(response_data))
     # print(payment_list)
-    beautiful_message = f"""
+
+    fail_message = f"""
     Dear {response_data['billing_name'][0]},
 
     We regret to inform you that your recent transaction with Order ID: {response_data['order_id'][0]} on date {response_data['trans_date'][0]} was unsuccessful. 
@@ -533,7 +534,7 @@ def payment_success(request):
 
 
 
-    return HttpResponse(str(beautiful_message))
+    return HttpResponse((response_string))
 
 @csrf_exempt
 def payment_cancel(request):
