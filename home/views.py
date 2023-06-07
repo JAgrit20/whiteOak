@@ -494,34 +494,34 @@ def payment_success(request):
     response_data = decrypt(response_chiper, settings.CC_WORKING_KEY)
     # print(payment_list)
     # payment success code
-    beautiful_message = f"""
-    Dear {response_data['billing_name'][0]},
+    # beautiful_message = f"""
+    # Dear {response_data['billing_name'][0]},
 
-    We regret to inform you that your recent transaction with Order ID: {response_data['order_id'][0]} on date {response_data['trans_date'][0]} was unsuccessful. 
+    # We regret to inform you that your recent transaction with Order ID: {response_data['order_id'][0]} on date {response_data['trans_date'][0]} was unsuccessful. 
 
-    Order Status: {response_data['order_status'][0]}
-    Payment Mode: {response_data['payment_mode'][0]}
-    Card Name: {response_data['card_name'][0]}
-    Status Message: {response_data['status_message'][0]}
-    Transaction Amount: {response_data['amount'][0]} {response_data['currency'][0]}
-    Merchant Amount: {response_data['mer_amount'][0]}
+    # Order Status: {response_data['order_status'][0]}
+    # Payment Mode: {response_data['payment_mode'][0]}
+    # Card Name: {response_data['card_name'][0]}
+    # Status Message: {response_data['status_message'][0]}
+    # Transaction Amount: {response_data['amount'][0]} {response_data['currency'][0]}
+    # Merchant Amount: {response_data['mer_amount'][0]}
 
-    Billing Details:
-    Name: {response_data['billing_name'][0]}
-    Email: {response_data['billing_email'][0]}
-    Contact Number: {response_data['billing_tel'][0]}
-    Address: {response_data['billing_address'][0]}, {response_data['billing_city'][0]}, {response_data['billing_state'][0]}, {response_data['billing_zip'][0]}, {response_data['billing_country'][0]}
+    # Billing Details:
+    # Name: {response_data['billing_name'][0]}
+    # Email: {response_data['billing_email'][0]}
+    # Contact Number: {response_data['billing_tel'][0]}
+    # Address: {response_data['billing_address'][0]}, {response_data['billing_city'][0]}, {response_data['billing_state'][0]}, {response_data['billing_zip'][0]}, {response_data['billing_country'][0]}
 
-    Delivery Details:
-    Name: {response_data['delivery_name'][0]}
-    Contact Number: {response_data['delivery_tel'][0]}
-    Address: {response_data['delivery_address'][0]}, {response_data['delivery_city'][0]}, {response_data['delivery_state'][0]}, {response_data['delivery_zip'][0]}, {response_data['delivery_country'][0]}
+    # Delivery Details:
+    # Name: {response_data['delivery_name'][0]}
+    # Contact Number: {response_data['delivery_tel'][0]}
+    # Address: {response_data['delivery_address'][0]}, {response_data['delivery_city'][0]}, {response_data['delivery_state'][0]}, {response_data['delivery_zip'][0]}, {response_data['delivery_country'][0]}
 
-    Please contact our support team if you need any further assistance.
+    # Please contact our support team if you need any further assistance.
 
-    Thank you,
-    Support Team
-    """
+    # Thank you,
+    # Support Team
+    # """
 
 
 
