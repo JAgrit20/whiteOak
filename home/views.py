@@ -507,6 +507,7 @@ def payment_success(request):
 # response_data = urllib.parse.parse_qs(response_string)
 
 # Check the order_status
+    beautiful_message = "Invalid Response"
     if response_data['order_status'][0] == "Success":
         beautiful_message = f"""
         Dear {response_data['billing_name'][0]},
