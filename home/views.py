@@ -492,9 +492,10 @@ def payment_success(request):
     response_data = request.POST
     response_chiper = response_data.get('encResp')
     payment_list = decrypt(response_chiper, settings.CC_WORKING_KEY)
+    print(payment_list)
     # payment success code
 
-    return HttpResponse('DONE')
+    return HttpResponse(str(payment_list))
 
 @csrf_exempt
 def payment_cancel(request):
