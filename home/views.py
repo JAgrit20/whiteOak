@@ -530,7 +530,7 @@ def payment_success(request):
 
 
 
-    return HttpResponse((beautiful_message))
+    return HttpResponse(type(response_data))
 
 @csrf_exempt
 def payment_cancel(request):
