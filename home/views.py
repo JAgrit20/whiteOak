@@ -431,14 +431,14 @@ def checkout(request):
 
     p_language = settings.CC_LANG
 
-    p_billing_name = 'Foo Bar'
-    p_billing_address = '12/Foo Bar'
-    p_billing_city = 'Tinsukia'
-    p_billing_state = 'Assam'
+    p_billing_name = 'White Oak User'
+    p_billing_address = '12/ Dubai'
+    p_billing_city = 'Jalgoan'
+    p_billing_state = 'Maharshtra'
     p_billing_zip = '786125'
     p_billing_country = settings.CC_BILL_CONTRY
-    p_billing_tel = '9957767675'
-    p_billing_email = 'vishal.pandey@chat360.io'
+    p_billing_tel = '8875091601'
+    p_billing_email = 'testemail'
 
     p_delivery_name = ''
     p_delivery_address = ''
