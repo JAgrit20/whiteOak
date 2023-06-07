@@ -438,7 +438,7 @@ def checkout(request):
     p_billing_zip = '786125'
     p_billing_country = settings.CC_BILL_CONTRY
     p_billing_tel = '8875091601'
-    p_billing_email = 'testemail'
+    p_billing_email = 'testemail@gmail.com'
 
     p_delivery_name = ''
     p_delivery_address = ''
