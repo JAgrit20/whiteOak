@@ -124,6 +124,8 @@ def Business_Incorporation(request):
   return render(request, 'plans/Business_Incorporation.html')
 def PMS(request):
   return render(request, 'plans/PMS.html')
+def DSC(request):  
+  return render(request, 'plans/DSC.html')
 def Compliance(request):
   return render(request, 'plans/Compliance.html')
 def Trademark(request):

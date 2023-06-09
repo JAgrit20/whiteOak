@@ -17,6 +17,7 @@ urlpatterns = [
     path('Business_Incorporation', views.Business_Incorporation, name='Business_Incorporation'),
     path('Incometax/', views.Incometax, name='Incometax'),
     path('PMS', views.PMS, name='PMS'),
+    path('DSC', views.DSC, name='DSC'), 
     path('Compliance', views.Compliance, name='Compliance'),
     path('Trademark', views.Trademark, name='Trademark'),
 

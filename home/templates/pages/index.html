@@ -14,8 +14,6 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
-          <!-- <h1 class="text-white pl-30 mt-n5"> Kit 22</h1>
-          <p class="lead text-white mt-3">Free & Open Source Web UI Kit built over Bootstrap 5. <br/> Join over 1.6 million developers around the world. </p> -->
         </div>
       </div>
     </div>
@@ -29,7 +27,7 @@
     <div class="row">
       <div class="col-lg-9 mx-auto py-3">
         <h1 class="text-gradient text-primary pt-3 text-center mt-n5" style="display: flex; justify-content: center;  background-image: linear-gradient(to right, #EA6EF4, #3E98B2,#3240AD) !important;"> Are you maximizing your financial potential?</h1>
-        <p class="lead text-gradient text-primary mt-3 text-center"  style="display: flex; justify-content: center; background-image: linear-gradient(to right, #EA6EF4, #3E98B2,#3240AD) !important;">Empowering your financial growth with expert advice enhanced by AI technology. <br/> Join over 1.6 million developers around the world. </p>
+        <p class="lead text-gradient text-primary mt-3 text-center"  style="display: flex; justify-content: center; background-image: linear-gradient(to right, #EA6EF4, #3E98B2,#3240AD) !important;">Empowering your financial growth with expert advice enhanced by AI technology. </p>
         <div class="row">
           <div class="col-md-4 position-relative">
             
@@ -51,7 +49,7 @@
           </div>
           <div class="col-md-3">
             <div class="p-3 text-center">
-              <h1 class="text-gradient text-primary" >₹ <span id="state3" countTo="14500"></span></h1>
+              <h1 class="text-gradient text-primary" >₹ <span id="state3" countTo="34500"></span></h1>
               <h5 class="mt-3">Average Income Tax Refund </h5>
               <!-- <p class="text-sm font-weight-normal">_______________________________</p> -->
             </div>
@@ -213,6 +211,19 @@ Register you Trademark & Strengthen your right
     </div>
     <div class="col-lg-4 mt-lg-0 mt-4">
       <div class="info-horizontal  border-radius-xl d-block d-md-flex p-4 h-100 shadow-lg">
+        <i class="material-icons text-gradient text-primary text-3xl">fingerprint</i>
+        <div class="ps-0 ps-md-3 mt-3 mt-md-0">
+          <h5>Digital signature certificate</h5>
+          <p>Used for GST, MCA, Income Tax, Tender sub EPFO filings, and more.</p>
+          <a href="{% url 'DSC' %}" class="text-primary icon-move-right">
+            View Plans
+            <i class="fas fa-arrow-right text-sm ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-lg-4 mt-lg-0 mt-4">
+      <div class="info-horizontal  border-radius-xl d-block d-md-flex p-4 h-100 shadow-lg">
         <i class="material-icons text-gradient text-primary text-3xl">assessment</i>
         <div class="ps-0 ps-md-3 mt-3 mt-md-0">
           <h5>Portfolio Management (PMS)</h5>
@@ -223,8 +234,8 @@ Register you Trademark & Strengthen your right
           </a>
         </div>
       </div>
-    </div>
-    <div class="col-lg-4 mt-lg-0 mt-4">
+    </div> -->
+    <!-- <div class="col-lg-4 mt-lg-0 mt-4">
       <div class="info-horizontal  border-radius-xl d-block d-md-flex p-4 h-100 shadow-lg">
         <i class="material-icons text-gradient text-primary text-3xl">fingerprint</i>
         <div class="ps-0 ps-md-3 mt-3 mt-md-0">
@@ -236,7 +247,7 @@ Register you Trademark & Strengthen your right
           </a>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="col-lg-4 mt-lg-0 mt-4">
       <div class="info-horizontal  border-radius-xl d-block d-md-flex p-4 h-100 shadow-lg">
         <i class="material-icons text-gradient text-primary text-3xl">gavel</i>
@@ -257,175 +268,6 @@ Register you Trademark & Strengthen your right
 
 
 </div>
-<!-- <h2>Pay via CCAvenue</h2>
-<form method="post" name="redirect" action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction">
-    <input type=hidden name=encRequest value="{{ encrypted_data }}">
-    <input type=hidden name=access_code value="{{ access_code }}">
-</form>
-<script language='javascript'>document.redirect.submit();</script> -->
-
-	<form method="POST" name="customerData" action="/checkout">
-		<table width="40%" height="100" border='1' align="center">
-			<caption>
-				<font size="4" color="blue"><b>Integration Kit</b></font>
-			</caption>
-		</table>
-		<table width="40%" height="100" border='1' align="center">
-			<tr>
-				<td>Parameter Name:</td>
-				<td>Parameter Value:</td>
-			</tr>
-			<tr>
-				<td colspan="2">Compulsory information</td>
-			</tr>
-			<tr>
-				<td>Merchant Id</td>
-				<td><input type="text" name="merchant_id" id="merchant_id" value="2308221" /> </td>
-			</tr>
-			<tr>
-				<td>Order Id</td>
-				<td><input type="text" name="order_id" value="1" /></td>
-			</tr>
-			<tr>
-				<td>Currency</td>
-				<td><input type="text" name="currency" value="INR" /></td>
-			</tr>
-			<tr>
-				<td>Amount</td>
-				<td><input type="text" name="amount" value="1.00" /></td>
-			</tr>
-			<tr>
-				<td>Redirect URL</td>
-				<td><input type="text" name="redirect_url"
-					value="https://www.whiteoakconsultant.com/" />
-				</td>
-			</tr>
-			<tr>
-				<td>Cancel URL</td>
-				<td><input type="text" name="cancel_url"
-					value="https://www.whiteoakconsultant.com/" />
-				</td>
-			</tr>
-			<tr>
-				<td>Language</td>
-				<td><input type="text" name="language" id="language" value="EN" /></td>
-			</tr>
-			<tr>
-				<td colspan="2">Billing information(optional):</td>
-			</tr>
-			<tr>
-				<td>Billing Name</td>
-				<td><input type="text" name="billing_name" value="Peter" /></td>
-			</tr>
-			<tr>
-				<td>Billing Address:</td>
-				<td><input type="text" name="billing_address"
-					value="Santacruz" /></td>
-			</tr>
-			<tr>
-				<td>Billing City:</td>
-				<td><input type="text" name="billing_city" value="Mumbai" /></td>
-			</tr>
-			<tr>
-				<td>Billing State:</td>
-				<td><input type="text" name="billing_state" value="MH" /></td>
-			</tr>
-			<tr>
-				<td>Billing Zip:</td>
-				<td><input type="text" name="billing_zip" value="400054" /></td>
-			</tr>
-			<tr>
-				<td>Billing Country:</td>
-				<td><input type="text" name="billing_country" value="India" />
-				</td>
-			</tr>
-			<tr>
-				<td>Billing Tel:</td>
-				<td><input type="text" name="billing_tel" value="0229874789" />
-				</td>
-			</tr>
-			<tr>
-				<td>Billing Email:</td>
-				<td><input type="text" name="billing_email"
-					value="testing@domain.com" /></td>
-			</tr>
-			<tr>
-				<td colspan="2">Shipping information(optional):</td>
-			</tr>
-			<tr>
-				<td>Shipping Name</td>
-				<td><input type="text" name="delivery_name" value="Sam" />
-				</td>
-			</tr>
-			<tr>
-				<td>Shipping Address:</td>
-				<td><input type="text" name="delivery_address"
-					value="Vile Parle" /></td>
-			</tr>
-			<tr>
-				<td>Shipping City:</td>
-				<td><input type="text" name="delivery_city" value="Mumbai" />
-				</td>
-			</tr>
-			<tr>
-				<td>Shipping State:</td>
-				<td><input type="text" name="delivery_state" value="Maharashtra" />
-				</td>
-			</tr>
-			<tr>
-				<td>Shipping Zip:</td>
-				<td><input type="text" name="delivery_zip" value="400038" /></td>
-			</tr>
-			<tr>
-				<td>Shipping Country:</td>
-				<td><input type="text" name="delivery_country" value="India" />
-				</td>
-			</tr>
-			<tr>
-				<td>Shipping Tel:</td>
-				<td><input type="text" name="delivery_tel" value="0221234321" />
-				</td>
-			</tr>
-			<tr>
-				<td>Merchant Param1</td>
-				<td><input type="text" name="merchant_param1"
-					value="additional Info." /></td>
-			</tr>
-			<tr>
-				<td>Merchant Param2</td>
-				<td><input type="text" name="merchant_param2"
-					value="additional Info." /></td>
-			</tr>
-			<tr>
-				<td>Merchant Param3</td>
-				<td><input type="text" name="merchant_param3"
-					value="additional Info." /></td>
-			</tr>
-			<tr>
-				<td>Merchant Param4</td>
-				<td><input type="text" name="merchant_param4"
-					value="additional Info." /></td>
-			</tr>
-			<tr>
-				<td>Merchant Param5</td>
-				<td><input type="text" name="merchant_param5"
-					value="additional Info." /></td>
-			</tr>
-			<tr>
-				<td>Promo Code:</td>
-				<td><input type="text" name="promo_code" value=""/></td>
-			</tr>
-			<tr>
-				<td>Customer Id:</td>
-				<td><input type="text" name="customer_identifier" value=""/></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><INPUT TYPE="submit" value="Checkout"></td>
-			</tr>
-		</table>
-	</form>
-
 
 {% endblock content %}
 
