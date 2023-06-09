@@ -555,7 +555,7 @@ def payment_success(request):
     'message' : beautiful_message,
     }
 
-    return render(request, 'pages/payment.html', params)
+    return render(request, 'pages/author.html', params)
 
 
 
