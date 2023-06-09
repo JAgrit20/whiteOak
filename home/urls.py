@@ -26,7 +26,7 @@ urlpatterns = [
 
     # path('', webprint, name='webprint'),
     path('ccavResponseHandler', views.ccavResponseHandler, name='ccavResponseHandler'),
-    path('checkout', views.checkout, name='login'),
+    path('checkout', views.checkout, name='checkout'),
 
     # path('checkout', views.checkout, name='checkout'),
 

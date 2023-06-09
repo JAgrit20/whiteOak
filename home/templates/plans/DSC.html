@@ -23,7 +23,9 @@
           <div class="col-lg-6 ms-lg-5">
             <!-- <h4 class="text-white">Accounting Services</h4> -->
             <h1 class="text-white">Digital signature certificate</h1>
-            <p class="lead text-white opacity-8"> Welcome to our portfolio management services! We offer three categories of services to meet your investment needs and budget. No matter which package you choose, you can trust that our team of experienced professionals will work tirelessly to help you achieve your financial goals. Contact us today to learn more about our PMS and which package is right for you.</p>
+            <p class="lead text-white opacity-8"> A DSC is an electronic and legal alternative of traditional wet signature.
+
+              WhiteOak Consultants deploys multi factor authentication to verify the user identity in less than 5 minutes. After verification, the digital signature is made available for download within 30 minutes.</p>
   
           </div>
         </div>
@@ -97,15 +99,86 @@
     <div class="card shadow-sm">
       <div class="row no-gutters">
         <div class="col-md-5">
-          <img class="card-img" src="https://media.istockphoto.com/id/1250581414/photo/blue-double-exposure-of-money-coins-stacking-with-bar-graph-for-financial-and-investment.jpg?s=1024x1024&w=is&k=20&c=1GId_Ztp9LTZ757d4aVCdSS4e20vGupw8ICX9vK9m9I=" alt="">
+          <img class="card-img" src="https://k2yindia.com/wp-content/uploads/2022/07/Digital-Signature.png" alt="">
         </div>
         <div class="col-md-7">
           <div class="card-body">
              <div class="row">
-              <div class="col-10"><h4 class="card-title">BASIC  </h4> </div>
-              <div class="col-2"> <h4 class="card-title" style="color: green;">₹ 5000      </h4></div>
+               <div class="col-10"><h4 class="card-title">Individual/Organization + Signature + Validity 1 year  </h4> </div>
               </div>
-            <p class="card-text">Asset under management  below ₹ 500000             </p>
+              <br></br>
+             {% if user.is_authenticated %}
+             <form method="post" action="{% url 'checkout' %}">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-6"> 
+               <input type="hidden" name="service" value = "Individual/Organization + Signature + Validity 1 year Without Token">  
+
+                  <h4 class="card-title" style="color: green;"> Without Token ₹ 1650</h4>
+                  <input type="hidden" name="amt" value="1650">
+                </div>
+                <div class="col-2">  
+                  <button class="btn bg-gradient-success btn-icon" type="submit">
+                    <div class="d-flex align-items-center">
+                      Buy Now
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </form>
+            
+            <form method="post" action="{% url 'checkout' %}">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-6"> 
+               <input type="hidden" name="service" value = "Individual/Organization + Signature + Validity 1 year with Token">  
+
+                  <h4 class="card-title" style="color: green;"> With Token ₹ 2100</h4>
+                  <input type="hidden" name="amt" value="2100">
+                </div>
+                <div class="col-2">  
+                  <button class="btn bg-gradient-success btn-icon" type="submit">
+                    <div class="d-flex align-items-center">
+                      Buy Now
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </form>
+            
+{% else %}
+    
+    <div class="row">
+      <div class="col-6"> 
+          <h4 class="card-title" style="color: green;"> Without Token ₹ 1650</h4>
+      </div>
+      <div class="col-2">  
+        <a href="{% url 'login' %}" class="btn bg-gradient-primary btn-icon" type="button">
+          <div class="d-flex align-items-center">
+              Login to Buy
+          </div>
+      </a>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-6"> 
+          <h4 class="card-title" style="color: rgb(0, 115, 128);"> With Token ₹ 2100</h4>
+      </div>
+      <div class="col-2">  
+        <a href="{% url 'login' %}" class="btn bg-gradient-primary btn-icon" type="button">
+          <div class="d-flex align-items-center">
+              Login to Buy
+          </div>
+      </a>
+      </div>
+  </div>
+    <div class="col-2">  
+       
+    </div>
+{% endif %}
+
+              
+            <!-- <p class="card-text">Asset under management  below ₹ 500000             </p> -->
 
             <div class="accordion mt-3" id="accordionExample">
               <div class="card">
@@ -120,16 +193,18 @@
                 </div>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card-body">
+                    <p>The applicant can submit any one of the following documents as Identity Proof:</p>
                     <ul>
-                      <li>Recording of entries for the completed financial year</li>
-                      <li>Preparation of Ledger Accounts-Cash, Sales, Purchases, Expenses</li>
-                      <li>Preparation of Receipts and Expenses Statement/Profit and Loss Account</li>
-                      <li>Preparation of Balance Sheet</li>
-                      <li>Bank Reconciliation Statement</li>
-                      <li>Statement of balance of Account Receivables and Payables</li>
-                      <li>Stock Summary</li>
-                      <li>Statement showing summary of all the transactions</li>
+                      <li>Aadhar Card (eKYC Service)</li>
+                      <li>Passport</li>
+                      <li>PAN Card of the Applicant</li>
+                      <li>Driving Licence</li>
+                      <li>Telephone Bill</li>
+                      <li>Voter ID Card</li>
+                      <li>Driving Licence (DL)/Registration Certificate (RC)</li>
+                      <li>Electricity Bill – Not older than 2 months</li>
                     </ul>
+                    
                   </div>
                 </div>
               </div>

@@ -416,8 +416,13 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from home.utils import *
 
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def checkout(request):
+    
+    amt = request.POST.get('amt')
+    service = request.POST.get('service')
     
     p_merchant_id = settings.CC_MERCHANT_ID
 
@@ -474,7 +479,7 @@ def checkout(request):
     params = {
         'p_redirect_url': p_redirect_url,
         'encryption': encryption, 'access_code': settings.CC_ACCESS_CODE,
-        'cc_url': settings.CC_URL, 'p_amount': 1,'current_site':current_site
+        'cc_url': settings.CC_URL, 'p_amount': 1,'current_site':current_site,'service':service
     }
 
     return render(request, 'pages/payment.html', params)
@@ -546,6 +551,11 @@ def payment_success(request):
         """
 
     print(beautiful_message)
+    params = {
+    'message' : beautiful_message,
+    }
+
+    return render(request, 'pages/payment.html', params)
 
 
 
@@ -554,7 +564,8 @@ def payment_success(request):
 
 
 
-    return HttpResponse((beautiful_message))
+
+    # return HttpResponse((beautiful_message))
 
 @csrf_exempt
 def payment_cancel(request):

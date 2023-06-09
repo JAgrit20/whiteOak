@@ -46,12 +46,7 @@
                 </div>
                 {% if messages %}
   <ul class="messages">
-    {% for message in messages %}
-    <div class="alert alert-success text-white font-weight-bold" role="alert" {% if message.tags %} class="{{ message.tags }}"{% endif %}>
-      {{ message }}
-    </div>
-      <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
-    {% endfor %}
+    {{message}}
   </ul>
 {% endif %}
 
