@@ -431,7 +431,7 @@ def checkout(request):
 
     p_order_id = '0001'
     p_currency = settings.CC_CURRENCY
-    p_amount = '1'
+    p_amount = amt
 
     p_redirect_url = str(current_site) + '/payment_success/'
     p_cancel_url = str(current_site) + '/payment_cancel/'
@@ -479,7 +479,7 @@ def checkout(request):
     params = {
         'p_redirect_url': p_redirect_url,
         'encryption': encryption, 'access_code': settings.CC_ACCESS_CODE,
-        'cc_url': settings.CC_URL, 'p_amount': 1,'current_site':current_site,'service':service
+        'cc_url': settings.CC_URL, 'p_amount': float(amt),'current_site':current_site,'service':service
     }
 
     return render(request, 'pages/payment.html', params)

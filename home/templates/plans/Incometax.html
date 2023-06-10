@@ -495,8 +495,29 @@
             <div class="card-body">
               <div class="row">
               <div class="col-10"><h4 class="card-title">Tax Planning and Advisory Services (Annual) </h4> </div>
-              <div class="col-2"> <h4 class="card-title" style="color: green;">₹ 7500 </h4></div>
-              </div>
+            </div>
+              <div class="row">
+              <!-- <div class="col-10"><h4 class="card-title">Tax Planning and Advisory Services (Annual) </h4> </div> -->
+              <!-- <div class="col-2"> <h4 class="card-title" style="color: green;">₹ 7500 </h4></div> -->
+              <form method="post" action="{% url 'checkout' %}">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-6"> 
+                 <input type="hidden" name="service" value = "Tax Planning and Advisory Services (Annual)">  
+  
+                    <h4 class="card-title" style="color: green;"> ₹ 7500</h4>
+                    <input type="hidden" name="amt" value="7500">
+                  </div>
+                  <div class="col-2">  
+                    <button class="btn bg-gradient-success btn-icon" type="submit">
+                      <div class="d-flex align-items-center">
+                        Buy Now
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
             <p class="card-text">For turnover more than 5 lakhs </p>
             <div class="accordion mt-3" id="accordionExample">
               <div class="card">
