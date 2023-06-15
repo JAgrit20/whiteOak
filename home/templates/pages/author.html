@@ -79,6 +79,20 @@
 </div>
 {% endif %}
 
+
+<!-- 
+<div class="container center-align">
+
+  <div class="heading">Custom Payment</div>
+
+  
+
+
+        
+
+</div> -->
+
+
                 <!-- <div class="row mb-4">
                   <div class="col-auto">
                     <span class="h6">323</span>
@@ -108,6 +122,36 @@
         </div>
       </div>
     </section>
+<div class="container center-align" style="justify-content: center;display: flex;">
+
+    <div class="col-lg-4 px-lg-1 mt-lg-0 mt-4">
+      <div class="info-horizontal  border-radius-xl d-block d-md-flex p-4 h-100 shadow-lg">
+        <i class="material-icons text-gradient text-primary text-3xl">business_center</i>
+        <div class="ps-0 ps-md-3 mt-3 mt-md-0">
+          <h5>Enter the Custom Payment below </h5>
+          <form method="post" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <div class="row" style="justify-content: space-around;">
+                <div class="col-4"> 
+                  
+                    <input type="hidden" name="service" value = "Custom Service">  
+    
+                    <!-- <h4 class="card-title" style="color: green;"> ₹ 7500</h4> -->
+                    <input name="amt" type="text">
+                </div>
+                <div class="col-2">  
+                    <button class="btn bg-gradient-success btn-icon" type="submit">
+                        <div class="d-flex align-items-center">
+                            Pay Now
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+    </div>
     <!-- END Testimonials w/ user image & text & info -->
     <!-- START Blogs w/ 4 cards w/ image & text & link -->
     <section class="py-3">
